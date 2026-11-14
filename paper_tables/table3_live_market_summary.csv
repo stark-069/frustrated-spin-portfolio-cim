@@ -1,0 +1,7 @@
+metric,us_classical,us_cim,nifty50_classical,nifty50_cim
+execution_time_s,1.2167,0.3077,1.2277,0.0675
+universe_size,20,20,20,20
+allocated_assets,9,11,5,5
+expected_return_pct,41.57,41.17,32.23,32.23
+volatility_pct,19.14,20.07,15.51,15.51
+sharpe,2.1712,2.0516,2.0776,2.0776
