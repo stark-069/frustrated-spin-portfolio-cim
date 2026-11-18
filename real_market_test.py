@@ -53,7 +53,7 @@ def run_case_study_locally(market_name, tickers):
     )
     
     print("[*] Simulating on Local Classical CPU...")
-    state, energy, exec_time = engine.simulated_annealing(Q_norm, num_reads=250, num_sweeps=100)
+    state, energy, exec_time = engine.simulated_annealing(Q_norm, num_reads=20, num_sweeps=1000)
     
     optimal_weights = decode_weights(state, num_assets)
     

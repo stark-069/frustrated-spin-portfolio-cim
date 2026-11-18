@@ -1,0 +1,8 @@
+metric,us_markets,nifty50
+execution_time_cim_s,0.307,0.067
+universe_size,20,20
+allocated_assets,11,5
+expected_return_oos_pct,32.02,37.66
+volatility_oos_pct,33.65,32.41
+sharpe_oos_rf0,0.951,1.162
+max_drawdown_pct,-39.26,-36.21

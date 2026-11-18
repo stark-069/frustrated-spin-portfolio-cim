@@ -70,10 +70,53 @@ class HighPerformanceQUBOEngine:
 
         return Q_norm, Q_raw, penalty_lambda, max_abs_val
 
-    def simulated_annealing(self, Q, num_reads=250, num_sweeps=100):
+    def smart_repaired_annealer(self, Q, num_reads=1000, steps_per_read=500):
+        """
+        Simulator with budget-aware initialization to test ground state validity.
+        """
+        N = Q.shape[0]
+        best_energy = float('inf')
+        best_state = None
+        
+        t0 = time.time()
+        
+        for _ in range(num_reads):
+            # Smart initialization: Start near 100% total weight allocation
+            state = np.zeros(N, dtype=np.int8)
+            # Pick 'num_assets' random bits to set to 1 across different assets
+            for a in range(self.num_assets):
+                bit_pick = np.random.randint(0, self.bits_per_asset)
+                state[a * self.bits_per_asset + bit_pick] = 1
+
+            current_energy = float(state.T @ Q @ state)
+            temp = 10.0
+            cooling = 0.98
+            
+            for _ in range(steps_per_read):
+                flip_idx = np.random.randint(0, N)
+                state_flip = state.copy()
+                state_flip[flip_idx] = 1 - state_flip[flip_idx]
+                
+                new_energy = float(state_flip.T @ Q @ state_flip)
+                delta_E = new_energy - current_energy
+                
+                if delta_E < 0 or np.random.rand() < np.exp(-delta_E / temp):
+                    state = state_flip
+                    current_energy = new_energy
+                    
+                temp *= cooling
+                
+            if current_energy < best_energy:
+                best_energy = current_energy
+                best_state = state.copy()
+                
+        elapsed = time.time() - t0
+        return best_state, best_energy, elapsed
+
+    def simulated_annealing(self, Q, num_reads=20, num_sweeps=1000):
         """Classical baseline (paper Sec. III-B): dwave-neal Simulated Annealing, Metropolis updates
-        in sequential (typewriter) order. Returns (state, energy, seconds); the timer covers the
-        sampler call only (pure time-to-solution)."""
+        in sequential order, 1,000 sweeps across 20 reads. Returns (state, energy, seconds); the
+        timer covers the sampler call only (pure time-to-solution)."""
         import dimod
         from neal import SimulatedAnnealingSampler
 

@@ -48,7 +48,7 @@ def run_classical_suite():
     for prof_name, gamma in PROFILES.items():
         eng = HighPerformanceQUBOEngine(num_assets=50, bits_per_asset=4, risk_gamma=gamma)
         Q_norm, _, _, _ = eng.build_qubo_from_real_data(ret_50, cov_50)
-        state, energy, time_taken = eng.simulated_annealing(Q_norm, num_reads=250, num_sweeps=100)
+        state, energy, time_taken = eng.simulated_annealing(Q_norm, num_reads=20, num_sweeps=1000)
         res_50[prof_name] = {"time": time_taken, "energy": energy, "status": "Success"}
         print(f"    - [{prof_name}] Time: {time_taken:.2f}s | Energy: {energy:.4f}")
     results["tests"]["50_assets"] = res_50
@@ -60,7 +60,7 @@ def run_classical_suite():
         eng = HighPerformanceQUBOEngine(num_assets=5000, bits_per_asset=4, risk_gamma=gamma)
         try:
             Q_norm, _, _, _ = eng.build_qubo_from_real_data(ret_5000, cov_5000)
-            state, energy, time_taken = eng.simulated_annealing(Q_norm, num_reads=250, num_sweeps=100)
+            state, energy, time_taken = eng.simulated_annealing(Q_norm, num_reads=20, num_sweeps=1000)
             res_5000[prof_name] = {"time": time_taken, "energy": energy, "status": "Success"}
         except MemoryError:
             res_5000[prof_name] = {"time": None, "energy": None, "status": "Failed: Out-of-Memory"}

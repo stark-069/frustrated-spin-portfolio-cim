@@ -1,16 +1,5 @@
-"""
-Quantum Ising Optimizer Cloud - Official Python Client SDK
-File: cim_cloud.py
-Usage:
-    from cim_cloud import CIMClient
-
-    client = CIMClient(api_key="cim_live_...")
-    job = client.submit_qubo({(0, 0): -2.5, (1, 1): 2.5, (0, 1): 0.45})
-    result = job.wait_for_completion()
-    print("Energy:", result.energy)
-    print("Spins:", result.spins)
-"""
-
+# File: cim_cloud.py
+# Licensed under the MIT License
 import time
 import requests
 from typing import Dict, List, Optional, Any, Union
@@ -31,12 +20,6 @@ class CIMResult:
         self.hardware_mode: str = data.get("hardware_mode", "")
         self.error_message: Optional[str] = data.get("error_message")
 
-    def __repr__(self):
-        return (f"<CIMResult job_id={self.job_id} status={self.status} "
-                f"energy={self.energy} time_ms={self.execution_time_ms} "
-                f"hardware={self.hardware_mode}>")
-
-
 class CIMJob:
     """Handle to an asynchronous or synchronous job dispatched to the CIM cloud."""
     def __init__(self, client: "CIMClient", job_data: Dict[str, Any]):
@@ -49,7 +32,6 @@ class CIMJob:
         self._cached_result: Optional[CIMResult] = None
 
     def refresh(self) -> str:
-        """Fetches latest status from server."""
         data = self.client._get(f"/api/v1/jobs/{self.id}")
         self.status = data.get("status", self.status)
         self.queue_position = data.get("queue_position", 0)
@@ -58,9 +40,6 @@ class CIMJob:
         return self.status
 
     def wait_for_completion(self, timeout_seconds: float = 60.0, poll_interval: float = 0.5) -> CIMResult:
-        """
-        Blocks until the job completes on the optical hardware or times out.
-        """
         start = time.time()
         while time.time() - start < timeout_seconds:
             self.refresh()
@@ -72,17 +51,10 @@ class CIMJob:
             elif self.status == "CANCELLED":
                 raise RuntimeError("Job was cancelled.")
             time.sleep(poll_interval)
-
-        raise TimeoutError(f"Job {self.id} timed out after {timeout_seconds}s in state: {self.status}")
-
-    def __repr__(self):
-        return f"<CIMJob id={self.id} status={self.status} queue_pos={self.queue_position}>"
-
+        raise TimeoutError(f"Job {self.id} timed out.")
 
 class CIMClient:
-    """
-    Client for interacting directly with the Quantum Ising Optimizer Cloud Gateway.
-    """
+    """Client for interacting directly with the Quantum Ising Optimizer Cloud Gateway."""
     def __init__(self, api_key: Optional[str] = None, token: Optional[str] = None, base_url: str = DEFAULT_BASE_URL):
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
@@ -111,17 +83,7 @@ class CIMClient:
             raise RuntimeError(f"API Error ({r.status_code}): {r.text}")
         return r.json()
 
-    def get_hardware_status(self) -> Dict[str, Any]:
-        """Returns the real-time physical status of the optical CIM bench."""
-        return self._get("/api/v1/hardware/status")
-
     def submit_qubo(self, Q: Dict[Any, float], label: Optional[str] = None, shots: int = 20) -> CIMJob:
-        """
-        Submits a Quadratic Unconstrained Binary Optimization (QUBO) problem.
-        `Q` can be formatted as:
-          - {(0, 0): -2.5, (0, 1): 1.2}
-          - {"0,0": -2.5, "0,1": 1.2}
-        """
         serialized_qubo = {}
         for k, v in Q.items():
             if isinstance(k, tuple):
@@ -137,43 +99,3 @@ class CIMClient:
         }
         res = self._post("/api/v1/jobs/submit", payload)
         return CIMJob(self, res)
-
-    def submit_ising(self, linear: Dict[Any, float], quadratic: Dict[Any, float], label: Optional[str] = None, shots: int = 20) -> CIMJob:
-        """Submits an Ising Hamiltonian problem (h, J)."""
-        clean_linear = {str(k): float(v) for k, v in linear.items()}
-        clean_quadratic = {}
-        for k, v in quadratic.items():
-            if isinstance(k, tuple):
-                clean_quadratic[f"{k[0]},{k[1]}"] = float(v)
-            else:
-                clean_quadratic[str(k)] = float(v)
-
-        payload = {
-            "label": label or "Ising Problem",
-            "problem_type": "ISING",
-            "linear": clean_linear,
-            "quadratic": clean_quadratic,
-            "shots": shots
-        }
-        res = self._post("/api/v1/jobs/submit", payload)
-        return CIMJob(self, res)
-
-    def submit_max_cut(self, edges: List[List[Union[int, float]]], label: Optional[str] = None) -> CIMJob:
-        """Submits a Graph Max-Cut problem where edges = [[u, v, weight], ...]."""
-        payload = {
-            "label": label or "Max-Cut Graph Partition",
-            "problem_type": "MAX_CUT",
-            "edges": edges
-        }
-        res = self._post("/api/v1/jobs/submit", payload)
-        return CIMJob(self, res)
-
-    def get_job(self, job_id: str) -> CIMJob:
-        """Retrieves a previously submitted job by ID."""
-        data = self._get(f"/api/v1/jobs/{job_id}")
-        return CIMJob(self, data)
-
-    def list_jobs(self, limit: int = 20) -> List[Dict[str, Any]]:
-        """Lists recent jobs for the authenticated user."""
-        res = self._get(f"/api/v1/jobs?limit={limit}")
-        return res.get("jobs", [])

@@ -1,0 +1,5 @@
+market,solver,time_s,allocated_assets,return_pct,volatility_pct,sharpe
+US,classical_SA,,9,41.57,19.14,2.1712
+US,CIM,0.3077,11,41.17,20.07,2.0516
+NIFTY50,classical_SA,1.228,5,,,
+NIFTY50,CIM,0.0675,5,,,

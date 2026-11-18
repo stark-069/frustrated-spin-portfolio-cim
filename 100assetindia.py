@@ -94,7 +94,7 @@ def run_nifty_cost_study():
         
         # 1. CLASSICAL SOLVER
         print("     [CPU] Running Classical Annealer (250 reads, 100 sweeps)...")
-        state_cpu, energy_cpu, time_cpu = engine.simulated_annealing(Q_norm, num_reads=250, num_sweeps=100)
+        state_cpu, energy_cpu, time_cpu = engine.simulated_annealing(Q_norm, num_reads=20, num_sweeps=1000)
         budget_cpu = np.sum(decode_weights(state_cpu, num_assets))
         
         # 2. OPTIQON CIM

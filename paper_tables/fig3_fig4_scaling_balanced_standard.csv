@@ -1,4 +1,4 @@
-assets,variables,cpu_energy,dwave_energy,cim_energy,cpu_time_s,dwave_time_s,cim_time_s
-500,2000,197805,-26.2,-26.2,60.6,8.6,114.7
-1000,4000,1220834,-26.15,-26.14,188.7,16.4,420.3
-1500,6000,3077854,-26.19,-26.18,317.5,29,1104.3
+assets,variables,cpu_energy_cold_start,dwave_energy,cim_energy,cpu_time_s,dwave_time_s,cim_time_s,osqp_time_s,note
+500,2000,124154,,,19.4,8.6,114.7,,dwave/cim 500 times read from Fig. 4 / earlier draft
+1000,4000,987334,-26.15,-26.14,97.0,16.4,420.3,0.49,
+1500,6000,2504035,,,155.6,29.0,1104.3,,

@@ -1,7 +1,7 @@
-risk_profile,cpu_energy,dwave_energy,cim_energy,cpu_time_s,dwave_time_s,cim_time_s
-Pure_Alpha,-1.79,-1.84,-16.19,11.24,5.05,1.02
-Aggressive_Growth,-1.82,-1.84,-16.13,7.2,5.01,1.03
-Balanced_Standard,-1.84,-1.86,-17.2,7.86,4.92,1.3
-Moderate_Conservative,-1.84,-1.88,-19.49,8.21,4.96,1.11
-Conservative_Yield,-1.86,-1.88,-19.52,8.28,5.01,1.32
-Min_Volatility,-1.84,-1.88,-19.51,5.57,4.97,1.4
+risk_profile,cpu_energy,dwave_energy,cim_energy_unified,cim_energy_uncorrected_fig1,cpu_time_s,dwave_time_s,cim_time_s
+Pure_Alpha,-1.79,-1.84,-1.84,-16.19,11.24,5.05,1.02
+Aggressive_Growth,-1.82,-1.84,-1.84,-16.13,7.2,5.01,1.03
+Balanced_Standard,-1.84,-1.86,-1.85,-17.2,7.86,4.92,1.3
+Moderate_Conservative,-1.84,-1.88,-1.87,-19.49,8.21,4.96,1.11
+Conservative_Yield,-1.86,-1.88,-1.88,-19.52,8.28,5.01,1.32
+Min_Volatility,-1.84,-1.88,-1.88,-19.51,5.57,4.97,1.4
