@@ -4,9 +4,10 @@
 
 **Transaction-Cost-Aware Portfolio Rebalancing on a Coherent Ising Machine: Discrete Formulations and Performance Limits**
 
-**Abhiroop Gohar\*, Aarush Bindod\*, and Shashank Gupta†**
-Department of Physics, Indian Institute of Technology Indore, Simrol, Indore 453552, India
-Centre for Interdisciplinary Areas in Quantum Computing, Indian Institute of Technology Indore, Indore 453552, India
+**Abhiroop Gohar\*<sup>1</sup>, Aarush Bindod\*<sup>1</sup>, and Shashank Gupta†<sup>2,1</sup>**
+
+<sup>1</sup> Department of Physics, Indian Institute of Technology Indore, Simrol, Indore 453552, India
+<sup>2</sup> Centre for Interdisciplinary Areas in Quantum Computing, Indian Institute of Technology Indore, Indore 453552, India
 
 \* These authors contributed equally. † Corresponding author: shashankg@iiti.ac.in
 
@@ -200,7 +201,6 @@ frustrated-spin-portfolio-cim/
 ├── README.md
 ├── LICENSE                          MIT, validation code
 ├── LICENSE-DATA                     CC BY 4.0, tables and figures
-├── NOTICE                           files outside the MIT license
 ├── requirements.txt
 ├── .env.example                     CIM_API_KEY, OPTIQON_URL, DWAVE_API_TOKEN, ...
 ├── .gitignore
@@ -228,7 +228,7 @@ frustrated-spin-portfolio-cim/
 │
 ├── main.py, intent_parser.py,
 │   config.py, data_fetcher.py,
-│   optiqon_solver.py                prompt-to-solver pipeline (supporting, see NOTICE)
+│   optiqon_solver.py                prompt-to-solver pipeline (supporting)
 │
 ├── data/                            price snapshots, created on first run
 ├── reports/                         results_*.json, written by the benchmarks
@@ -404,7 +404,7 @@ This work was made possible by the support of Qurious Labs, Centre of Quantum Co
 
 * **Code** written for this validation study is released under the **MIT License** (see [`LICENSE`](LICENSE)).
 * **Result tables and figures** (`paper_tables/`, `figures/`) are released under **CC BY 4.0** (see [`LICENSE-DATA`](LICENSE-DATA)).
-* Files carrying a **QUANFLUENCE PRIVATE LIMITED** copyright header are **not** covered by the MIT license; see [`NOTICE`](NOTICE).
+* All source files are the property of **Qurious Labs, Centre for Interdisciplinary Areas in Quantum Computing, Indian Institute of Technology Indore**, and carry the same MIT header.
 * Market data comes from Yahoo Finance and is subject to its terms.
 
 Use of the CIM cloud service is governed by the terms shown on the access portal.

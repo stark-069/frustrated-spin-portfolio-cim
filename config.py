@@ -1,7 +1,11 @@
 #------------------------------------------------------------------------------
 #
-#            (c) Copyright 2026 by QUANFLUENCE PRIVATE LIMITED
-#                          All rights reserved.
+#   (c) Copyright 2026 Qurious Labs,
+#   Centre for Interdisciplinary Areas in Quantum Computing,
+#   Indian Institute of Technology Indore, Indore 453552, India.
+#
+#   Property of Qurious Labs, IIT Indore.
+#   Released under the MIT License (see LICENSE in the repository root).
 #
 #------------------------------------------------------------------------------
 #  File        : config.py
@@ -196,7 +200,7 @@ def get_solver(mode: str | None = None):
         except ImportError as e:
             raise ImportError(
                 "Optiqon mode requires optiqon_solver.py in your project root. "
-                "Contact Optiqon / Quanfluence for the SDK."
+                "Contact the Optiqon CIM team for the SDK."
             ) from e
         sampler = OptiqonSampler(
             url     = OPTIQON_URL,

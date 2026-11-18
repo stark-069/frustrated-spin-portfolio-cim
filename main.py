@@ -1,26 +1,14 @@
 #------------------------------------------------------------------------------
 #
-#            (c) Copyright 2026 by QUANFLUENCE PRIVATE LIMITED
-#                          All rights reserved.
+#   (c) Copyright 2026 Qurious Labs,
+#   Centre for Interdisciplinary Areas in Quantum Computing,
+#   Indian Institute of Technology Indore, Indore 453552, India.
 #
-#   Trade Secret of QUANFLUENCE PRIVATE LIMITED  Do not disclose.
-#
-#   Use of this file in any form or means is permitted only
-#   with a valid, written license agreement with QUANFLUENCE PRIVATE LIMTED.
-#   The licensee shall strictly limit use of information contained herein
-#   to the conditions specified in the written license agreement.
-#
-#   Licensee shall keep all information contained herein confidential
-#   and shall protect same in whole or in part from disclosure and
-#   dissemination to all third parties.
-#
-#                         QUANFLUENCE PRIVATE LIMITED
-#                        E-Mail: assist@quanfluence.com
-#                             www.quanfluence.com
+#   Property of Qurious Labs, IIT Indore.
+#   Released under the MIT License (see LICENSE in the repository root).
 #
 #------------------------------------------------------------------------------
 #  File        : main.py
-#  Author      : B R Nikilesh
 #  Description : Master Entry point for the Quantum Finance Vertical Pipeline.
 #------------------------------------------------------------------------------
 
@@ -209,7 +197,7 @@ def print_result(result: dict):
 
 def _banner(prompt: str):
     print(f"\n{'─'*62}")
-    print(f"  QUANFLUENCE MASTER COMPILER  |  {EXECUTION_MODE.upper()}")
+    print(f"  MASTER COMPILER  |  {EXECUTION_MODE.upper()}")
     print(f"  Prompt : {prompt}")
     print(f"{'─'*62}\n")
 
@@ -224,7 +212,7 @@ def main():
         result = run_pipeline(prompt)
         print_result(result)
     else:
-        print("\n  Quanfluence Master Compiler — Interactive Mode")
+        print("\n  Master Compiler — Interactive Mode")
         print(f"  Execution Backend: {EXECUTION_MODE.upper()}")
         print("  Type 'quit' to exit\n")
         print("  Examples:")

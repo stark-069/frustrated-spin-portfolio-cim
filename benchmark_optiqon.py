@@ -51,7 +51,7 @@ def run_optiqon_suite(stress_5000=False):
 
     os.makedirs("reports", exist_ok=True)
     ret_50, cov_50, _ = moments(load_close(TICKERS_50, "sp500_50", period="1y"))
-    results = {"solver": "Quanfluence Optiqon CIM", "tests": {}}
+    results = {"solver": "Optiqon CIM", "tests": {}}
 
     # 50-asset suite. Reported time = hardware execution time (excludes cloud/API transmission).
     print("\n[*] Executing 50-Asset Suite on CIM...")

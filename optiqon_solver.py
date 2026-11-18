@@ -1,32 +1,20 @@
 #------------------------------------------------------------------------------
 #
-#            (c) Copyright 2026 by QUANFLUENCE PRIVATE LIMITED
-#                          All rights reserved.
+#   (c) Copyright 2026 Qurious Labs,
+#   Centre for Interdisciplinary Areas in Quantum Computing,
+#   Indian Institute of Technology Indore, Indore 453552, India.
 #
-#   Trade Secret of QUANFLUENCE PRIVATE LIMITED  Do not disclose.
-#
-#   Use of this file in any form or means is permitted only
-#   with a valid, written license agreement with QUANFLUENCE PRIVATE LIMTED.
-#   The licensee shall strictly limit use of information contained herein
-#   to the conditions specified in the written license agreement.
-#
-#   Licensee shall keep all information contained herein confidential
-#   and shall protect same in whole or in part from disclosure and
-#   dissemination to all third parties.
-#
-#                         QUANFLUENCE PRIVATE LIMITED
-#                        E-Mail: assist@quanfluence.com
-#                             www.quanfluence.com
+#   Property of Qurious Labs, IIT Indore.
+#   Released under the MIT License (see LICENSE in the repository root).
 #
 #------------------------------------------------------------------------------
 #  File        : optiqon_solver.py
-#  Author      : B R Nikilesh
 #  Description : Unified QUBO solver bridge — four backends supported:
 #
 #    "simulator" → dimod SimulatedAnnealingSampler  (local, no account)
 #    "dwave"     → D-Wave LeapHybridSampler          (cloud, needs API token)
 #    "dwave_qpu" → D-Wave DWaveSampler + Embedding   (direct QPU, needs token)
-#    "optiqon"   → Quanfluence Optiqon machine        (HTTP POST, local network)
+#    "optiqon"   → Optiqon machine        (HTTP POST, local network)
 #
 #  All quantum_core modules call solve_qubo() only.
 #  Switching hardware = change EXECUTION_MODE in .env. Nothing else.
@@ -196,12 +184,12 @@ def _solve_dwave_qpu(Q: dict, label: str) -> dict:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-#  Backend 2 — Quanfluence Optiqon (local network HTTP)
+#  Backend 2 — Optiqon (local network HTTP)
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _solve_optiqon(Q: dict, label: str) -> dict:
     """
-    Send QUBO to the Quanfluence Optiqon machine.
+    Send QUBO to the Optiqon machine.
     Format matches the official run_qubo.py demo exactly.
     """
     bqm              = dimod.BinaryQuadraticModel.from_qubo(Q)
